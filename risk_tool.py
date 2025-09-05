@@ -3,6 +3,7 @@ import json
 import csv
 import random
 from typing import List, Dict, Any, Optional
+import numpy as np
 
 def load_threats(filepath: str) -> List[Dict[str, Any]]:
     """
@@ -151,6 +152,38 @@ def prod(iterable):
         result *= x
     return result
 
+class BayesianThreat:
+    """
+    Simple Bayesian updater for Bernoulli threat probabilities using Beta prior.
+    """
+    def __init__(self, prior_alpha=1, prior_beta=1):
+        self.alpha = prior_alpha
+        self.beta = prior_beta
+
+    def update(self, observed_success: bool):
+        if observed_success:
+            self.alpha += 1
+        else:
+            self.beta += 1
+
+    @property
+    def mean(self):
+        return self.alpha / (self.alpha + self.beta)
+
+    def sample(self):
+        return np.random.beta(self.alpha, self.beta)
+
+def monte_carlo_dynamic(threats: List[Dict[str, Any]], bayesian_threats: List[BayesianThreat], iterations: int = 10000) -> float:
+    """
+    Monte Carlo simulation using dynamic Bayesian threat probabilities.
+    """
+    successes = 0
+    for _ in range(iterations):
+        probs = [bt.sample() for bt in bayesian_threats]
+        if any(random.random() < p for p in probs):
+            successes += 1
+    return successes / iterations if iterations > 0 else 0.0
+
 def main():
     parser = argparse.ArgumentParser(description="IoT Threat Modeling Risk Tool (Smart TV Example)")
     parser.add_argument("input", nargs="?", default="smarttv_threats.json",
@@ -175,6 +208,21 @@ def main():
     if args.simulate:
         analytic, monte_carlo = monte_carlo_compromise_probability(threats, iterations=args.simulate)
         print(f"Overall compromise probability (independent threats): analytic={analytic:.3f}, MonteCarlo({args.simulate})={monte_carlo:.3f}")
+
+        # --- Bayesian inference example ---
+        # Initialize BayesianThreats with prior (can be tuned)
+        bayesian_threats = [BayesianThreat(prior_alpha=1, prior_beta=1) for _ in threats]
+        # Simulate some observations (for demonstration, here: 2 successes, 3 failures per threat)
+        for bt in bayesian_threats:
+            for _ in range(2):
+                bt.update(True)
+            for _ in range(3):
+                bt.update(False)
+        dynamic_mc = monte_carlo_dynamic(threats, bayesian_threats, iterations=args.simulate)
+        print(f"Dynamic (Bayesian) Monte Carlo compromise probability: {dynamic_mc:.3f}")
+        # Show current Bayesian means for each threat
+        for t, bt in zip(threats, bayesian_threats):
+            print(f"Threat {t.get('id','')}: Bayesian mean probability = {bt.mean:.3f}")
 
     if args.tree:
         with open(args.tree, "r", encoding="utf-8") as file:

@@ -112,7 +112,25 @@ To view and edit `.drawio` files (such as `ThreatModelDiagram.drawio`) directly 
 - Calculates DREAD scores and STRIDE tags for each threat.
 - Ranks threats and generates reports (console, CSV, Markdown).
 - Supports Monte Carlo simulation to estimate the probability of system compromise.
-- Evaluates attack trees to determine the likelihood of a successful attack path.
+- **Supports Bayesian inference for dynamic threat probability estimation:**  
+  Each threat's probability can be updated with new evidence using a Bayesian (Beta-Bernoulli) model via the `BayesianThreat` class. The tool demonstrates how to update threat probabilities dynamically (e.g., after observed successes/failures) and uses these updated probabilities in a dynamic Monte Carlo simulation.
+
+### What is Bayesian Inference for Threat Probability?
+
+Bayesian inference is a statistical method that allows you to update the probability estimate for a threat as new evidence or data becomes available.  
+- **Prior:** You start with an initial guess (prior probability) for how likely a threat is to occur.
+- **Evidence:** As you observe real-world events (e.g., attacks succeed or fail), you update your belief.
+- **Posterior:** The updated probability (posterior) reflects both your prior and the new evidence.
+
+In this project, each threat can be modeled as a Bernoulli process (success/failure), and the Beta distribution is used as a prior for the probability.  
+- When you observe a successful attack, the model increases its estimate for that threat's probability.
+- When you observe a failed attack, the model decreases its estimate.
+- The more evidence you collect, the more confident and accurate your probability estimate becomes.
+
+**How it works in the tool:**
+- For each threat, a `BayesianThreat` object keeps track of the number of observed successes and failures.
+- The mean of the Beta distribution (`alpha / (alpha + beta)`) gives the current best estimate of the threat probability.
+- The dynamic Monte Carlo simulation samples from these updated probabilities to estimate the overall system risk, reflecting both uncertainty and new evidence.
 
 ### Example Usage
 
@@ -122,6 +140,23 @@ python risk_tool.py smarttv_threats.json --csv threats.csv --md threats.md
 python risk_tool.py smarttv_threats.json --simulate 10000
 python risk_tool.py smarttv_threats.json --tree attack_tree.json
 ```
+
+- When running with `--simulate`, the tool will also demonstrate Bayesian updating and dynamic Monte Carlo simulation.  
+  The output will show both the original analytic/Monte Carlo probabilities and the dynamic (Bayesian) Monte Carlo probability, as well as the current Bayesian mean probability for each threat.
+
+#### Example Output (Bayesian Inference)
+
+```
+Overall compromise probability (independent threats): analytic=0.345, MonteCarlo(10000)=0.347
+Dynamic (Bayesian) Monte Carlo compromise probability: 0.298
+Threat T1: Bayesian mean probability = 0.429
+Threat T2: Bayesian mean probability = 0.429
+...
+```
+
+**Interpretation:**  
+- The Bayesian mean probability for each threat reflects the best estimate given all observed evidence.
+- The dynamic Monte Carlo probability gives a system-wide risk estimate that adapts as you gather more data.
 
 ---
 
