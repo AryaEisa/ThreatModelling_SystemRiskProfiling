@@ -1,0 +1,185 @@
+[
+  {
+    "id": "T1",
+    "location": "Home<->Internet boundary",
+    "description": "Rogue AP / MITM capturing tokens or altering traffic",
+    "stride": [
+      "Spoofing",
+      "Tampering",
+      "Information Disclosure"
+    ],
+    "dread": {
+      "damage": 8,
+      "reproducibility": 7,
+      "exploitability": 8,
+      "affected_users": 9,
+      "discoverability": 6
+    },
+    "mitigations": [
+      "WPA3",
+      "HSTS",
+      "DoH/DNSSEC",
+      "Certificate pinning"
+    ],
+    "prob": 0.15
+  },
+  {
+    "id": "T2",
+    "location": "Local Storage",
+    "description": "Auth tokens/keys stolen from device storage",
+    "stride": [
+      "Information Disclosure",
+      "Elevation of Privilege"
+    ],
+    "dread": {
+      "damage": 9,
+      "reproducibility": 6,
+      "exploitability": 7,
+      "affected_users": 9,
+      "discoverability": 5
+    },
+    "mitigations": [
+      "Secure enclave/keystore",
+      "Encrypt at rest",
+      "Short-lived tokens",
+      "Least privilege"
+    ],
+    "prob": 0.1
+  },
+  {
+    "id": "T3",
+    "location": "Smart TV <-> OAuth/IDP",
+    "description": "Weak OAuth configuration enables token abuse",
+    "stride": [
+      "Spoofing",
+      "Elevation of Privilege"
+    ],
+    "dread": {
+      "damage": 8,
+      "reproducibility": 6,
+      "exploitability": 7,
+      "affected_users": 8,
+      "discoverability": 6
+    },
+    "mitigations": [
+      "PKCE",
+      "Strict redirect URIs",
+      "Rotate secrets",
+      "Scope-limiting"
+    ],
+    "prob": 0.12
+  },
+  {
+    "id": "T4",
+    "location": "Smart TV <-> Streaming/CDN",
+    "description": "Manipulated media manifest/segments or DRM keys",
+    "stride": [
+      "Tampering",
+      "Denial of Service"
+    ],
+    "dread": {
+      "damage": 7,
+      "reproducibility": 6,
+      "exploitability": 6,
+      "affected_users": 8,
+      "discoverability": 6
+    },
+    "mitigations": [
+      "Signed manifests",
+      "Integrity checks",
+      "Input validation",
+      "Rate limiting"
+    ],
+    "prob": 0.08
+  },
+  {
+    "id": "T5",
+    "location": "Smart TV -> Telemetry/Analytics",
+    "description": "Overexposed telemetry sends sensitive data",
+    "stride": [
+      "Information Disclosure",
+      "Repudiation"
+    ],
+    "dread": {
+      "damage": 6,
+      "reproducibility": 6,
+      "exploitability": 6,
+      "affected_users": 8,
+      "discoverability": 6
+    },
+    "mitigations": [
+      "Anonymization/Aggregation",
+      "Privacy by default",
+      "Opt-in",
+      "DPIA"
+    ],
+    "prob": 0.05
+  },
+  {
+    "id": "T6",
+    "location": "Smart TV <-> Update Server",
+    "description": "Unsigned or hijacked firmware update",
+    "stride": [
+      "Tampering",
+      "Elevation of Privilege"
+    ],
+    "dread": {
+      "damage": 9,
+      "reproducibility": 5,
+      "exploitability": 6,
+      "affected_users": 9,
+      "discoverability": 4
+    },
+    "mitigations": [
+      "Signed updates",
+      "Chain of trust",
+      "Rollback protection",
+      "Supply-chain controls"
+    ],
+    "prob": 0.07
+  },
+  {
+    "id": "T7",
+    "location": "User -> Smart TV (IR/Bluetooth/App)",
+    "description": "Local command replay/bruteforce",
+    "stride": [
+      "Spoofing",
+      "Repudiation"
+    ],
+    "dread": {
+      "damage": 5,
+      "reproducibility": 7,
+      "exploitability": 7,
+      "affected_users": 7,
+      "discoverability": 6
+    },
+    "mitigations": [
+      "Nonce/challenge-response",
+      "Pairing hardening",
+      "Lockout/throttling"
+    ],
+    "prob": 0.06
+  },
+  {
+    "id": "T8",
+    "location": "Streaming/CDN",
+    "description": "DoS against streaming/API",
+    "stride": [
+      "Denial of Service"
+    ],
+    "dread": {
+      "damage": 6,
+      "reproducibility": 7,
+      "exploitability": 7,
+      "affected_users": 7,
+      "discoverability": 6
+    },
+    "mitigations": [
+      "CDN/Anycast",
+      "Exponential backoff",
+      "Failover",
+      "Local cache"
+    ],
+    "prob": 0.1
+  }
+]
