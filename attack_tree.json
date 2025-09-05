@@ -1,0 +1,23 @@
+{
+  "root": "Compromise Smart TV",
+  "logic": "OR",
+  "children": [
+    {
+      "ref": "T2"
+    },
+    {
+      "logic": "AND",
+      "children": [
+        {
+          "ref": "T3"
+        },
+        {
+          "ref": "T6"
+        }
+      ]
+    },
+    {
+      "ref": "T1"
+    }
+  ]
+}
