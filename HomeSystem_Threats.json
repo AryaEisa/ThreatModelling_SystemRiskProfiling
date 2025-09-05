@@ -1,0 +1,135 @@
+[
+  {
+    "id": "T-TV1",
+    "device": "SmartTV",
+    "location": "Apps",
+    "description": "Malicious app exfiltrates viewing history & PII",
+    "stride": ["Information Disclosure", "Repudiation"],
+    "dread": { "damage": 8, "reproducibility": 6, "exploitability": 5, "affected": 7, "discoverability": 6 },
+    "mitigations": ["App vetting", "Permission sandbox"],
+    "prob": 0.12
+  },
+  {
+    "id": "T-TV2",
+    "device": "SmartTV",
+    "location": "OS",
+    "description": "Remote code execution via vulnerable TV OS component",
+    "stride": ["Elevation of Privilege", "Tampering"],
+    "dread": { "damage": 9, "reproducibility": 5, "exploitability": 6, "affected": 8, "discoverability": 6 },
+    "mitigations": ["Patch management", "Firmware signing"],
+    "prob": 0.06
+  },
+  {
+    "id": "T-TV3",
+    "device": "SmartTV",
+    "location": "Voice",
+    "description": "Voice command spoofing for unauthorized purchases",
+    "stride": ["Spoofing", "Elevation of Privilege"],
+    "dread": { "damage": 7, "reproducibility": 6, "exploitability": 6, "affected": 7, "discoverability": 6 },
+    "mitigations": ["Voice PIN", "Multi-factor authentication"],
+    "prob": 0.08
+  },
+  {
+    "id": "T-TV4",
+    "device": "SmartTV",
+    "location": "Network",
+    "description": "Telemetry leakage to third parties",
+    "stride": ["Information Disclosure"],
+    "dread": { "damage": 6, "reproducibility": 7, "exploitability": 6, "affected": 8, "discoverability": 8 },
+    "mitigations": ["Data minimization", "Encrypted telemetry"],
+    "prob": 0.15
+  },
+  {
+    "id": "T-TV5",
+    "device": "SmartTV",
+    "location": "Firmware",
+    "description": "Firmware update tampering via compromised CDN",
+    "stride": ["Tampering", "Repudiation", "Elevation of Privilege"],
+    "dread": { "damage": 9, "reproducibility": 4, "exploitability": 5, "affected": 9, "discoverability": 5 },
+    "mitigations": ["Code signing", "Secure CDN"],
+    "prob": 0.03
+  },
+
+  {
+    "id": "T-RV1",
+    "device": "RobotVacuum",
+    "location": "Camera",
+    "description": "Hijack vacuum camera for spying",
+    "stride": ["Information Disclosure", "Spoofing"],
+    "dread": { "damage": 9, "reproducibility": 6, "exploitability": 7, "affected": 8, "discoverability": 7 },
+    "mitigations": ["Encrypt streams", "Secure OTA updates"],
+    "prob": 0.10
+  },
+  {
+    "id": "T-RV2",
+    "device": "RobotVacuum",
+    "location": "Firmware",
+    "description": "Malicious firmware update via insecure OTA",
+    "stride": ["Tampering", "Elevation of Privilege"],
+    "dread": { "damage": 8, "reproducibility": 5, "exploitability": 6, "affected": 7, "discoverability": 6 },
+    "mitigations": ["Code signing", "Rollback protection"],
+    "prob": 0.07
+  },
+  {
+    "id": "T-RV3",
+    "device": "RobotVacuum",
+    "location": "Navigation",
+    "description": "Exfiltration of home map and occupancy patterns",
+    "stride": ["Information Disclosure"],
+    "dread": { "damage": 7, "reproducibility": 7, "exploitability": 5, "affected": 8, "discoverability": 6 },
+    "mitigations": ["Data anonymization", "User consent"],
+    "prob": 0.09
+  },
+
+  {
+    "id": "T-SL1",
+    "device": "SmartLights",
+    "location": "Zigbee",
+    "description": "Replay Zigbee signals to control lights",
+    "stride": ["Spoofing", "Tampering"],
+    "dread": { "damage": 5, "reproducibility": 7, "exploitability": 6, "affected": 5, "discoverability": 6 },
+    "mitigations": ["Nonce protection", "Encrypted comms"],
+    "prob": 0.08
+  },
+  {
+    "id": "T-SL2",
+    "device": "SmartLights",
+    "location": "Hub",
+    "description": "Compromise hub to pivot into home network",
+    "stride": ["Elevation of Privilege", "Tampering"],
+    "dread": { "damage": 8, "reproducibility": 5, "exploitability": 6, "affected": 8, "discoverability": 5 },
+    "mitigations": ["Firmware signing", "Network segmentation"],
+    "prob": 0.06
+  },
+
+  {
+    "id": "T-TH1",
+    "device": "Thermostat",
+    "location": "Cloud",
+    "description": "Cloud account takeover controlling HVAC",
+    "stride": ["Elevation of Privilege", "Tampering"],
+    "dread": { "damage": 8, "reproducibility": 6, "exploitability": 7, "affected": 9, "discoverability": 6 },
+    "mitigations": ["MFA", "Strong API auth"],
+    "prob": 0.09
+  },
+  {
+    "id": "T-TH2",
+    "device": "Thermostat",
+    "location": "Firmware",
+    "description": "Tampered firmware disables heating/cooling",
+    "stride": ["Denial of Service", "Tampering"],
+    "dread": { "damage": 9, "reproducibility": 4, "exploitability": 5, "affected": 9, "discoverability": 5 },
+    "mitigations": ["Code signing", "Safe boot"],
+    "prob": 0.05
+  },
+  {
+    "id": "T-TH3",
+    "device": "Thermostat",
+    "location": "Data",
+    "description": "Leak occupancy patterns through schedules",
+    "stride": ["Information Disclosure"],
+    "dread": { "damage": 7, "reproducibility": 6, "exploitability": 6, "affected": 8, "discoverability": 6 },
+    "mitigations": ["Data minimization", "Encrypted storage"],
+    "prob": 0.07
+  }
+]

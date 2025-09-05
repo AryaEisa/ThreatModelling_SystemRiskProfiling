@@ -1,0 +1,39 @@
+{
+  "root": "Compromise Smart Home IoT System",
+  "logic": "OR",
+  "children": [
+    {
+      "logic": "OR",
+      "children": [
+        { "ref": "T-TV1" },
+        { "ref": "T-TV2" },
+        { "ref": "T-TV3" },
+        { "ref": "T-TV4" },
+        { "ref": "T-TV5" }
+      ]
+    },
+    {
+      "logic": "OR",
+      "children": [
+        { "ref": "T-RV1" },
+        { "ref": "T-RV2" },
+        { "ref": "T-RV3" }
+      ]
+    },
+    {
+      "logic": "OR",
+      "children": [
+        { "ref": "T-SL1" },
+        { "ref": "T-SL2" }
+      ]
+    },
+    {
+      "logic": "OR",
+      "children": [
+        { "ref": "T-TH1" },
+        { "ref": "T-TH2" },
+        { "ref": "T-TH3" }
+      ]
+    }
+  ]
+}
