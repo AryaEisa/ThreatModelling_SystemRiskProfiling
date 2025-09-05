@@ -1,40 +1,132 @@
 # ThreatModelling_SystemRiskProfiling
-Foundations of Cybersecurity, Threat Modeling, and System Risk Profiling
 
-## Viewing .drawio Files in VS Code
-
-To view and edit `.drawio` files (like `DFD.drawio`) directly in Visual Studio Code:
-
-1. **Install the Draw.io Integration Extension:**
-   - Go to the Extensions view (`Ctrl+Shift+X`).
-   - Search for `Draw.io Integration` or `drawio`.
-   - Click **Install** on the extension.
-
-2. **Open Your .drawio File:**
-   - After installing, open your `.drawio` file.
-   - It will display the diagram visually, and you can edit it within VS Code.
-
-This allows you to work with diagrams without leaving your
+Foundations of Cybersecurity: Threat Modeling and System Risk Profiling
 
 ---
 
-## Description of JSON Files
+## Project Overview
+
+This repository demonstrates a structured approach to threat modeling for a fictional IoT system (Smart TV). The solution applies industry-standard frameworks (STRIDE, DREAD, CIA triad), visualizes attack paths, and provides a Python tool for risk analysis and simulation.
+
+---
+
+## File Structure
+
+| File                        | Description                                                                                   |
+|-----------------------------|----------------------------------------------------------------------------------------------|
+| `ThreatModelDiagram.drawio` | Data Flow Diagram (DFD) and STRIDE threat table for the Smart TV system                      |
+| `smarttv_threats.json`      | List of identified threats, each classified and scored using STRIDE and DREAD                |
+| `attack_tree.json`          | Attack tree describing how threats can be combined to compromise the Smart TV                |
+| `risk_tool.py`              | Python tool for risk ranking, simulation, and attack tree evaluation                        |
+| `README.md`                 | Project documentation and instructions                                                       |
+
+---
+
+## Viewing Diagrams in Visual Studio Code
+
+To view and edit `.drawio` files (such as `ThreatModelDiagram.drawio`) directly in Visual Studio Code:
+
+1. Open the Extensions view (`Ctrl+Shift+X`).
+2. Search for and install the "Draw.io Integration" extension.
+3. Open your `.drawio` file to view and edit diagrams within VS Code.
+
+---
+
+## System Scope
+
+### Key Assets
+
+- Smart TV device (hardware and firmware)
+- User credentials and authentication tokens
+- User data (settings, preferences, viewing history)
+- Network connection (WiFi/Ethernet)
+- Cloud services (OAuth/IDP, firmware update servers)
+
+### Attacker Profiles
+
+- **External attacker:** Attempts attacks via the internet (e.g., MITM, remote exploitation).
+- **Internal attacker:** Has physical access to the home network or TV (e.g., household member, guest).
+
+### Trust Boundaries
+
+- Home network ↔ Internet: Traffic between the home network and external services.
+- Smart TV ↔ Local storage: Protection of stored credentials and sensitive data.
+- Smart TV ↔ Cloud services: Authentication and secure communication with external services.
+
+### Entry and Exit Points
+
+- Network interfaces (WiFi/Ethernet)
+- Remote control interfaces (IR/Bluetooth)
+- Firmware update mechanism (internet-based updates)
+- Application interfaces (apps running on the TV)
+
+### Data Flows
+
+- User input to Smart TV (remote control, app)
+- Smart TV to/from cloud services (authentication, updates, data retrieval)
+- Smart TV to/from local storage (tokens, settings)
+- Smart TV to/from the internet (streaming, third-party services)
+
+---
+
+## Threat Modeling Approach
+
+- **STRIDE:** Each threat in `smarttv_threats.json` is classified according to the STRIDE model (Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege).
+- **DREAD:** Each threat is scored using the DREAD model (damage, reproducibility, exploitability, affected users, discoverability).
+- **CIA Triad:** The model addresses Confidentiality, Integrity, and Availability through STRIDE/DREAD categories.
+
+---
+
+## Threat and Attack Tree Files
 
 ### smarttv_threats.json
 
-This file contains a detailed threat analysis for a Smart TV system. Each object in the list represents a specific security threat (e.g., MITM attacks, stolen authentication tokens, weak update routines) and is structured according to two established frameworks:
-
-- **STRIDE**: Classifies threats based on six categories (Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege).
-- **DREAD**: Provides a risk assessment for each threat based on factors such as damage, reproducibility, exploitability, affected users, and discoverability.
-
-Each threat also includes a description, probability estimate, and suggested mitigations. The file is used to identify, prioritize, and manage security risks in the system.
+- Contains a list of threats relevant to the Smart TV system.
+- Each threat includes:
+  - Unique ID
+  - Location in the system
+  - Description
+  - STRIDE classification
+  - DREAD risk assessment
+  - Probability estimate
+  - Suggested mitigations
 
 ### attack_tree.json
 
-This file describes an attack tree for the Smart TV system. An attack tree visualizes different paths an attacker can take to compromise the system. The tree has a root goal ("Compromise Smart TV") and shows which combinations of threats (referenced by their IDs from `smarttv_threats.json`) can lead to achieving that goal.
+- Describes an attack tree with logical (AND/OR) combinations of threats.
+- Each node references a threat by ID and includes a probability.
+- The root node represents the compromise of the Smart TV.
+- Used to analyze how different threats can combine to achieve a successful attack.
 
-- **OR/AND logic**: The tree uses logical operators to show whether a single threat is sufficient (OR) or if multiple threats must be combined (AND) for a successful attack.
-- **Example**: An attacker can compromise the TV by succeeding with T2, T1, or both T3 and T6 together.
+---
 
+## Python Risk Tool (`risk_tool.py`)
 
-The attack tree helps to understand and analyze how different threats interact and which attack paths are most critical to defend against.
+- Reads threats from JSON or YAML files.
+- Calculates DREAD scores and STRIDE tags for each threat.
+- Ranks threats and generates reports (console, CSV, Markdown).
+- Supports Monte Carlo simulation to estimate the probability of system compromise.
+- Evaluates attack trees to determine the likelihood of a successful attack path.
+
+### Example Usage
+
+```sh
+python risk_tool.py smarttv_threats.json
+python risk_tool.py smarttv_threats.json --csv threats.csv --md threats.md
+python risk_tool.py smarttv_threats.json --simulate 10000
+python risk_tool.py smarttv_threats.json --tree attack_tree.json
+```
+
+---
+
+## Summary
+
+This project provides a complete workflow for structured threat modeling of an IoT system, including:
+
+- Asset and attacker analysis
+- Trust boundary and data flow identification
+- STRIDE/DREAD-based threat documentation
+- Attack tree construction and evaluation
+- Automated risk ranking and simulation
+
+The approach and tools can be adapted to other IoT or cyber-physical systems for comprehensive threat modeling and risk assessment.
