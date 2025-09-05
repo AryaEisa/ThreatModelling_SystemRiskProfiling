@@ -17,7 +17,10 @@ This repository demonstrates a structured approach to threat modeling for a fict
 | `ThreatModelDiagram.drawio` | Data Flow Diagram (DFD) and STRIDE threat table for the Smart TV system                      |
 | `smarttv_threats.json`      | List of identified threats, each classified and scored using STRIDE and DREAD                |
 | `attack_tree.json`          | Attack tree describing how threats can be combined to compromise the Smart TV                |
-| `risk_tool.py`              | Python tool for risk ranking, simulation, and attack tree evaluation                        |
+| `risk_tool.py`              | Python tool for risk ranking, simulation, and attack tree evaluation                         |
+| `attack_three.py`           | Visualizes the attack tree as a hierarchical, layered diagram and saves it as an image       |
+| `main.py`                   | Runs both risk analysis and attack tree visualization scripts in sequence                    |
+| `attack_tree.png`           | Example output image of the attack tree visualization                                        |
 | `README.md`                 | Project documentation and instructions                                                       |
 
 ---
@@ -93,10 +96,13 @@ To view and edit `.drawio` files (such as `ThreatModelDiagram.drawio`) directly 
 
 ### attack_tree.json
 
-- Describes an attack tree with logical (AND/OR) combinations of threats.
-- Each node references a threat by ID and includes a probability.
-- The root node represents the compromise of the Smart TV.
-- Used to analyze how different threats can combine to achieve a successful attack.
+- Describes an attack tree using a hierarchical, logical structure (AND/OR nodes).
+- Each node can reference a threat by its unique ID, and leaf nodes correspond to specific threats from `smarttv_threats.json`.
+- Logical nodes (AND/OR) define how multiple threats must combine for a successful attack (e.g., all must occur for AND, any for OR).
+- Each threat node includes a probability, which is used for analytic and simulation-based risk calculations.
+- The root node represents the overall compromise of the Smart TV and sits at the top of the tree.
+- The attack tree can be visualized as a layered, top-down diagram using the provided Python script, making the logical structure and dependencies clear.
+- Used to analyze how different threats can combine to achieve a successful attack, and to compute the probability of system compromise via analytic or Monte Carlo methods.
 
 ---
 
@@ -116,6 +122,35 @@ python risk_tool.py smarttv_threats.json --csv threats.csv --md threats.md
 python risk_tool.py smarttv_threats.json --simulate 10000
 python risk_tool.py smarttv_threats.json --tree attack_tree.json
 ```
+
+---
+
+## Attack Tree Visualization (`attack_three.py`)
+
+- Visualizes the attack tree (`attack_tree.json`) as a hierarchical, layered diagram using NetworkX and Matplotlib.
+- Uses a top-down layout to clearly show the logical structure (AND/OR nodes) and threat dependencies.
+- Colors and shapes distinguish between logic nodes and threat nodes.
+- The resulting attack tree visualization is automatically saved as `attack_tree.png` in the project directory.
+- You can view the generated image directly or include it in reports.
+
+---
+
+## Main Script (`main.py`)
+
+- Runs both `risk_tool.py` (for risk analysis, simulation, and attack tree evaluation) and `attack_three.py` (for attack tree visualization) in sequence.
+- **To generate all analysis and visual outputs with a single command, run:**
+
+```sh
+python main.py
+```
+
+- This will produce console reports, simulation results, the attack tree image, and always export the threats as a CSV file (`threats.csv`) in the project directory.
+
+---
+
+## Example Output
+
+You can use the generated `attack_tree.png` as a visual summary of the attack tree structure in your documentation or presentations.
 
 ---
 

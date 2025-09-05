@@ -1,0 +1,9 @@
+rank,id,score,severity,stride,location,description,mitigations,prob
+1,T1,7.60,High,Spoofing|Tampering|Information Disclosure,Home<->Internet boundary,Rogue AP / MITM capturing tokens or altering traffic,WPA3; HSTS; DoH/DNSSEC; Certificate pinning,0.15
+2,T2,7.20,High,Information Disclosure|Elevation of Privilege,Local Storage,Auth tokens/keys stolen from device storage,Secure enclave/keystore; Encrypt at rest; Short-lived tokens; Least privilege,0.1
+3,T3,7.00,High,Spoofing|Elevation of Privilege,Smart TV <-> OAuth/IDP,Weak OAuth configuration enables token abuse,PKCE; Strict redirect URIs; Rotate secrets; Scope-limiting,0.12
+4,T4,6.60,High,Tampering|Denial of Service,Smart TV <-> Streaming/CDN,Manipulated media manifest/segments or DRM keys,Signed manifests; Integrity checks; Input validation; Rate limiting,0.08
+5,T6,6.60,High,Tampering|Elevation of Privilege,Smart TV <-> Update Server,Unsigned or hijacked firmware update,Signed updates; Chain of trust; Rollback protection; Supply-chain controls,0.07
+6,T8,6.60,High,Denial of Service,Streaming/CDN,DoS against streaming/API,CDN/Anycast; Exponential backoff; Failover; Local cache,0.1
+7,T5,6.40,Medium,Information Disclosure|Repudiation,Smart TV -> Telemetry/Analytics,Overexposed telemetry sends sensitive data,Anonymization/Aggregation; Privacy by default; Opt-in; DPIA,0.05
+8,T7,6.40,Medium,Spoofing|Repudiation,User -> Smart TV (IR/Bluetooth/App),Local command replay/bruteforce,Nonce/challenge-response; Pairing hardening; Lockout/throttling,0.06
