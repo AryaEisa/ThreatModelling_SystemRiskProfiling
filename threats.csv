@@ -1,9 +1,14 @@
 rank,id,score,severity,stride,location,description,mitigations,prob
-1,T1,7.60,High,Spoofing|Tampering|Information Disclosure,Home<->Internet boundary,Rogue AP / MITM capturing tokens or altering traffic,WPA3; HSTS; DoH/DNSSEC; Certificate pinning,0.15
-2,T2,7.20,High,Information Disclosure|Elevation of Privilege,Local Storage,Auth tokens/keys stolen from device storage,Secure enclave/keystore; Encrypt at rest; Short-lived tokens; Least privilege,0.1
-3,T3,7.00,High,Spoofing|Elevation of Privilege,Smart TV <-> OAuth/IDP,Weak OAuth configuration enables token abuse,PKCE; Strict redirect URIs; Rotate secrets; Scope-limiting,0.12
-4,T4,6.60,High,Tampering|Denial of Service,Smart TV <-> Streaming/CDN,Manipulated media manifest/segments or DRM keys,Signed manifests; Integrity checks; Input validation; Rate limiting,0.08
-5,T6,6.60,High,Tampering|Elevation of Privilege,Smart TV <-> Update Server,Unsigned or hijacked firmware update,Signed updates; Chain of trust; Rollback protection; Supply-chain controls,0.07
-6,T8,6.60,High,Denial of Service,Streaming/CDN,DoS against streaming/API,CDN/Anycast; Exponential backoff; Failover; Local cache,0.1
-7,T5,6.40,Medium,Information Disclosure|Repudiation,Smart TV -> Telemetry/Analytics,Overexposed telemetry sends sensitive data,Anonymization/Aggregation; Privacy by default; Opt-in; DPIA,0.05
-8,T7,6.40,Medium,Spoofing|Repudiation,User -> Smart TV (IR/Bluetooth/App),Local command replay/bruteforce,Nonce/challenge-response; Pairing hardening; Lockout/throttling,0.06
+1,T-RV1,5.80,Medium,Information Disclosure|Spoofing,Camera,Hijack vacuum camera for spying,Encrypt streams; Secure OTA updates,0.1
+2,T-TH1,5.40,Medium,Elevation of Privilege|Tampering,Cloud,Cloud account takeover controlling HVAC,MFA; Strong API auth,0.09
+3,T-TV4,5.40,Medium,Information Disclosure,Network,Telemetry leakage to third parties,Data minimization; Encrypted telemetry,0.15
+4,T-TV2,5.20,Medium,Elevation of Privilege|Tampering,OS,Remote code execution via vulnerable TV OS component,Patch management; Firmware signing,0.06
+5,T-RV2,5.00,Medium,Tampering|Elevation of Privilege,Firmware,Malicious firmware update via insecure OTA,Code signing; Rollback protection,0.07
+6,T-RV3,5.00,Medium,Information Disclosure,Navigation,Exfiltration of home map and occupancy patterns,Data anonymization; User consent,0.09
+7,T-TH3,5.00,Medium,Information Disclosure,Data,Leak occupancy patterns through schedules,Data minimization; Encrypted storage,0.07
+8,T-TV1,5.00,Medium,Information Disclosure|Repudiation,Apps,Malicious app exfiltrates viewing history & PII,App vetting; Permission sandbox,0.12
+9,T-TV3,5.00,Medium,Spoofing|Elevation of Privilege,Voice,Voice command spoofing for unauthorized purchases,Voice PIN; Multi-factor authentication,0.08
+10,T-SL1,4.80,Low,Spoofing|Tampering,Zigbee,Replay Zigbee signals to control lights,Nonce protection; Encrypted comms,0.08
+11,T-SL2,4.80,Low,Elevation of Privilege|Tampering,Hub,Compromise hub to pivot into home network,Firmware signing; Network segmentation,0.06
+12,T-TH2,4.60,Low,Denial of Service|Tampering,Firmware,Tampered firmware disables heating/cooling,Code signing; Safe boot,0.05
+13,T-TV5,4.60,Low,Tampering|Repudiation|Elevation of Privilege,Firmware,Firmware update tampering via compromised CDN,Code signing; Secure CDN,0.03

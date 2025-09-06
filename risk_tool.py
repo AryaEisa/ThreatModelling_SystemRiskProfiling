@@ -186,13 +186,14 @@ def monte_carlo_dynamic(threats: List[Dict[str, Any]], bayesian_threats: List[Ba
 
 def main():
     parser = argparse.ArgumentParser(description="IoT Threat Modeling Risk Tool (Smart TV Example)")
-    parser.add_argument("input", nargs="?", default="smarttv_threats.json",
-                        help="Threats file (JSON or YAML). Default: smarttv_threats.json")
+    parser.add_argument("input", nargs="?", default="HomeSystem_Threats.json",
+                        help="Threats file (JSON or YAML). Default: HomeSystem_Threats.json")
     parser.add_argument("--csv", help="Export ranked threats to CSV")
     parser.add_argument("--md", help="Export ranked threats to Markdown")
     parser.add_argument("--simulate", type=int, default=0, help="Run Monte Carlo with N iterations (uses per-threat 'prob')")
     parser.add_argument("--tree", help="Attack tree JSON file (optional)")
     args = parser.parse_args()
+    print(f"Loading threats from {args.input}...")
 
     threats = load_threats(args.input)
     enrich_threats(threats)
@@ -227,7 +228,7 @@ def main():
     if args.tree:
         with open(args.tree, "r", encoding="utf-8") as file:
             tree = json.load(file)
-        threat_index = {t["id"]: t for t in threats}
+        threat_index = {t["id"]: t for t in threats if "id" in t}
         tree_probability = evaluate_attack_tree(tree, threat_index)
         print(f"Attack tree root '{tree.get('root', 'root')}' success probability (analytic): {tree_probability:.3f}")
 
