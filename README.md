@@ -18,7 +18,7 @@ This repository demonstrates a structured approach to threat modeling for a fict
 | `smarttv_threats.json`      | List of identified threats, each classified and scored using STRIDE and DREAD                |
 | `attack_tree.json`          | Attack tree describing how threats can be combined to compromise the Smart TV                |
 | `risk_tool.py`              | Python tool for risk ranking, simulation, and attack tree evaluation                         |
-| `attack_three.py`           | Visualizes the attack tree as a hierarchical, layered diagram and saves it as an image       |
+| `attack_tree.py`           | Visualizes the attack tree as a hierarchical, layered diagram and saves it as an image       |
 | `main.py`                   | Runs both risk analysis and attack tree visualization scripts in sequence                    |
 | `attack_tree.png`           | Example output image of the attack tree visualization                                        |
 | `README.md`                 | Project documentation and instructions                                                       |
@@ -160,7 +160,7 @@ Threat T2: Bayesian mean probability = 0.429
 
 ---
 
-## Attack Tree Visualization (`attack_three.py`)
+## Attack Tree Visualization (`attack_tree.py`)
 
 - Visualizes the attack tree (`attack_tree.json`) as a hierarchical, layered diagram using NetworkX and Matplotlib.
 - Uses a top-down layout to clearly show the logical structure (AND/OR nodes) and threat dependencies.
@@ -172,7 +172,7 @@ Threat T2: Bayesian mean probability = 0.429
 
 ## Main Script (`main.py`)
 
-- Runs both `risk_tool.py` (for risk analysis, simulation, and attack tree evaluation) and `attack_three.py` (for attack tree visualization) in sequence.
+- Runs both `risk_tool.py` (for risk analysis, simulation, and attack tree evaluation) and `attack_tree.py` (for attack tree visualization) in sequence.
 - **To generate all analysis and visual outputs with a single command, run:**
 
 ```sh

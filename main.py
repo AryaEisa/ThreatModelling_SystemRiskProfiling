@@ -8,5 +8,5 @@ subprocess.run([
     "--csv", "threats.csv"
 ])
 
-# Kör attack_three.py (visualisering av attackträdet)
+# Kör attack_tree.py (visualisering av attackträdet)
 subprocess.run(["python", "attack_tree_homesystem.py"])
